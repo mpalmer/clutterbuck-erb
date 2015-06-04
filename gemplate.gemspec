@@ -1,4 +1,8 @@
-require 'git-version-bump' rescue nil
+begin
+	require 'git-version-bump'
+rescue LoadError
+	nil
+end
 
 Gem::Specification.new do |s|
 	s.name = "gemplate"
