@@ -74,7 +74,7 @@ module Clutterbuck::ERB
 					      "Invalid key in vars list: #{k.inspect}"
 				end
 
-				instance_eval "def #{k}; @vars[#{k}]; end"
+				instance_eval "def #{k}; @vars[#{k.inspect}]; end"
 			end
 		end
 	end
