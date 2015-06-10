@@ -12,5 +12,6 @@ guard 'rspec',
       :all_after_pass => true do
 	watch(%r{^spec/.+_spec\.rb$})
 	watch(%r{^spec/.+_methods\.rb$})
+	watch(%r{^spec/fixtures/.*$}) { "spec" }
 	watch(%r{^lib/}) { "spec" }
 end
