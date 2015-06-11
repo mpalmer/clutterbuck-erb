@@ -1,4 +1,5 @@
 require 'erb'
+require 'rack'
 
 #:nodoc:
 module Clutterbuck; end
@@ -51,8 +52,9 @@ module Clutterbuck::ERB
 
 	#:nodoc:
 	#
-	# A special (very, *very* special) class which only defines methods for the
-	# vars that are passed into it.
+	# A special (very, *very* special) class which only defines methods for
+	# the vars that are passed into it, as well as fundamental HTML escaping
+	# methods.
 	#
 	class EvalBinding < BasicObject
 		def initialize(vars)
@@ -76,6 +78,12 @@ module Clutterbuck::ERB
 
 				instance_eval "def #{k}; @vars[#{k.inspect}]; end"
 			end
+		end
+
+		# HTML-escape the provided string.
+		#
+		def h(s)
+			::Rack::Utils.escape_html(s)
 		end
 	end
 
