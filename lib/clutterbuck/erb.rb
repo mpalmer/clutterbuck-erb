@@ -145,6 +145,8 @@ module Clutterbuck::ERB
 	end
 
 	def erbterpreter(view)
-		ERB.new(view_content(view), 0, "%-")
+		file = view_content(view)
+
+		ERB.new(file, 0, "%-").tap { |erb| erb.filename = file }
 	end
 end
