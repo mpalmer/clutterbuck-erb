@@ -141,12 +141,16 @@ module Clutterbuck::ERB
 	end
 
 	def view_content(view)
-		File.read(File.join(self.class.views, view.to_s + ".html.erb"))
+		File.read(view_file(view))
+	end
+
+	def view_file(view)
+		File.join(self.class.views, view.to_s + ".html.erb")
 	end
 
 	def erbterpreter(view)
 		file = view_content(view)
 
-		ERB.new(file, 0, "%-").tap { |erb| erb.filename = file }
+		ERB.new(file, 0, "%-").tap { |erb| erb.filename = view_file(view) }
 	end
 end
