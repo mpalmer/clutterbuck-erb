@@ -148,4 +148,17 @@ describe Clutterbuck::ERB do
 			expect(header("Content-Length")).to eq([21])
 		end
 	end
+
+	context "with a nested layout" do
+		let(:view)   { :arithmetic }
+		let(:layout) { [:braces, :default] }
+
+		it "renders with the layout" do
+			expect(body).to eq("{{{Content goes here: 4}}}\n")
+		end
+
+		it "accounts for the layout in the content length" do
+			expect(header("Content-Length")).to eq([27])
+		end
+	end
 end

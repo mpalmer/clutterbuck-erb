@@ -30,9 +30,9 @@ module Clutterbuck::ERB
 
 		# Set or get the layout to use by default when rendering all templates.
 		#
-		# @param l [Symbol] The layout file to use.
+		# @param l [Symbol, Array<Symbol>] The layout specification to use.
 		#
-		# @return Symbol
+		# @return [Symbol, Array<Symbol>]
 		#
 		def layout(l=Unspecified)
 			if l != Unspecified
@@ -107,12 +107,15 @@ module Clutterbuck::ERB
 	#   Rack response.
 	#
 	def erb(view, vars)
-		content = erbterpreter(view).result(get_binding(vars))
+		render_chain = [@layout || self.class.layout, view].flatten.compact
 
-		layout = @layout || self.class.layout
+		content = ""
 
-		if layout
-			content = erbterpreter(layout).result(get_binding(vars) { content.chomp })
+		until render_chain.empty?
+			view = render_chain.pop
+			
+			cur_binding = get_binding(vars) { content.chomp }
+			content = erbterpreter(view).result(cur_binding)
 		end
 
 		[
@@ -128,7 +131,7 @@ module Clutterbuck::ERB
 	# Specify a layout to use for this request.  Works identically to
 	# {ClassMethods#layout} in all the relevant particulars.
 	#
-	# @param l [Symbol]
+	# @param l [Symbol, Array<Symbol>]
 	#
 	def layout(l)
 		@layout = l
