@@ -50,7 +50,7 @@ describe Clutterbuck::ERB do
 		end
 
 		it "sets Content-Length" do
-			expect(header("Content-Length")).to eq([2])
+			expect(header("Content-Length")).to eq(["2"])
 		end
 
 		it "sets Content-Type" do
@@ -67,7 +67,7 @@ describe Clutterbuck::ERB do
 		let(:vars) { { :foo => "bar", :baz => "wombat" } }
 
 		it "sets Content-Length" do
-			expect(header("Content-Length")).to eq([25])
+			expect(header("Content-Length")).to eq(["25"])
 		end
 
 		it "lists the vars" do
@@ -132,7 +132,7 @@ describe Clutterbuck::ERB do
 		end
 
 		it "accounts for the layout in the content length" do
-			expect(header("Content-Length")).to eq([21])
+			expect(header("Content-Length")).to eq(["21"])
 		end
 	end
 
@@ -145,7 +145,7 @@ describe Clutterbuck::ERB do
 		end
 
 		it "accounts for the layout in the content length" do
-			expect(header("Content-Length")).to eq([21])
+			expect(header("Content-Length")).to eq(["21"])
 		end
 	end
 
@@ -158,7 +158,7 @@ describe Clutterbuck::ERB do
 		end
 
 		it "accounts for the layout in the content length" do
-			expect(header("Content-Length")).to eq([27])
+			expect(header("Content-Length")).to eq(["27"])
 		end
 	end
 end

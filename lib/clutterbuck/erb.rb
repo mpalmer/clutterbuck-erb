@@ -113,7 +113,7 @@ module Clutterbuck::ERB
 
 		until render_chain.empty?
 			view = render_chain.pop
-			
+
 			cur_binding = get_binding(vars) { content.chomp }
 			content = erbterpreter(view).result(cur_binding)
 		end
@@ -121,7 +121,7 @@ module Clutterbuck::ERB
 		[
 			200,
 			[
-				["Content-Length", content.bytesize],
+				["Content-Length", content.bytesize.to_s],
 				["Content-Type", "text/html; charset=utf-8"]
 			],
 			[content]
